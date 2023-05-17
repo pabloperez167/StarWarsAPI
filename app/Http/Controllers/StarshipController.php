@@ -11,11 +11,9 @@ class StarshipController extends Controller
 {
     public function showStarships()
     {
-        // Recuperar todas las naves con sus pilotos asociados
-        $starships = Starship::with('pilots')->get();
+        return response()->json(Starship::all(),200);
+    }     
 
-        return view('starships', ['starships' => $starships]);
-
-
-    }
 }
+
+

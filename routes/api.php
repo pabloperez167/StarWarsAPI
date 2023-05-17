@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('Starship', 'App\Http\Controllers\StarshipController@showStarships');
+Route::get('index', 'App\Http\Controllers\IndexController@index');
+

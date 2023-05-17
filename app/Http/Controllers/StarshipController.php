@@ -16,13 +16,7 @@ class StarshipController extends Controller
     }    
     
    
-    public function showStarships2()
-    {
-        $starships = response()->json(Starship::all(),200);
-        return view('starships', compact('starships'));
-        
-        
-    }
+    
     
 }
 

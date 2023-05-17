@@ -18,8 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('Starship', 'App\Http\Controllers\StarshipController@showStarships2');
-Route::get('js/app.js', 'App\Http\Controllers\appController@app');
+Route::get('Starship', 'App\Http\Controllers\StarshipController@showStarships');
 
 
 ;

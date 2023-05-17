@@ -18,7 +18,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('Starship', 'App\Http\Controllers\StarshipController@showStarships');
+Route::get('starship', 'App\Http\Controllers\StarshipController@showStarships');
 
+Route::get('starship/{id}', 'App\Http\Controllers\StarshipController@getStarshipxid');
+
+Route::put('deletePilot/{id}', 'App\Http\Controllers\StarshipController@deletePilot');
+
+Route::post('addPilot/{id}', 'App\Http\Controllers\StarshipController@addPilotToStarship');
 
 ;

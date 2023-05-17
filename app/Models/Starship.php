@@ -10,9 +10,16 @@ class Starship extends Model
 {
 
     use HasFactory;
+
+    /*public function piloto()
+{
+    return $this->belongsTo(Pilot::class);
+}*/
+
     protected $fillable = [
-        'name', 'model', 'piloto'
+        'name', 'model', 'piloto',
         // Add other attributes that you want to allow mass assignment for
     ];
+    
     
 }

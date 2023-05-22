@@ -12,5 +12,12 @@ class Pilot extends Model
         'name'
         // Add other attributes that you want to allow mass assignment for
     ];
+
+    public function starships()
+    {
+        return $this->belongsToMany(Starship::class, 'pilot_starship', 'pilot_id', 'starship_id', 'starship_name');
+    }
+    
+
     
 }

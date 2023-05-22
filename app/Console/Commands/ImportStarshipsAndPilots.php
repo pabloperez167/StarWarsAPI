@@ -43,42 +43,43 @@ class ImportStarshipsAndPilots extends Command
             $data = json_decode($response->getBody(), true);
 
             // Recorremos cada nave y extraemos su nombre y pilotos
-            foreach ($data['results'] as $nave) {
+            // ...
 
-                // Si la nave tiene pilotos, realizamos solicitudes HTTP para obtener sus nombres
+            foreach ($data['results'] as $nave) {
+                // ...
+
                 if (!empty($nave['pilots'])) {
                     foreach ($nave['pilots'] as $urlPiloto) {
                         $response = $client->request('GET', $urlPiloto);
                         $piloto = json_decode($response->getBody(), true);
 
-                        // Buscamos si ya existe un piloto con el mismo nombre
                         $pilotoExistente = Pilot::where('name', $piloto['name'])->first();
 
                         if (!$pilotoExistente) {
-                            // Si no existe, creamos un nuevo piloto
                             $pilotoExistente = Pilot::create([
                                 'name' => $piloto['name']
                                 // Agrega más atributos del piloto que deseas guardar
                             ]);
                         }
-                        // Guardar cada nave en la base de datos
-                        Starship::create([
+
+                        $starship = Starship::create([
                             'name' => $nave['name'],
                             'model' => $nave['model'],
                             'piloto' => $piloto['name']
-                            // Agrega más atributos de la nave que deseas guardar
                         ]);
 
+                        // Establecer la relación en la tabla pivote
+                        $starship->pilots()->attach($pilotoExistente, ['starship_id' => $starship->id]);
                     }
                 }
-                Starship::create([
+                $starship = Starship::create([
                     'name' => $nave['name'],
                     'model' => $nave['model'],
-
                 ]);
-
-
             }
+
+            // ...
+
 
             $page++;
         }

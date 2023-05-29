@@ -57,7 +57,8 @@ class StarshipController extends Controller
         if (!$starship) {
             return response()->json(['message' => 'Nave espacial no encontrada'], 404);
         }
-    
+        // Desasociar todos los pilotos de la nave espacial
+        $starship->pilots()->detach();
         // Buscar el piloto por su ID
         $pilot = Pilot::find($pilotId);
     

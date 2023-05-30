@@ -43,4 +43,4 @@ jobs:
       - name: Generate app key
         run: php artisan key:generate
 
-      - 
+  

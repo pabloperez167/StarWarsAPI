@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('model')->default('')->nullable();
             $table->string('piloto')->default('')->nullable();
+            $table->bigInteger('coste')->default(0);
             $table->timestamps();
         });
     }

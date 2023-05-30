@@ -46,7 +46,11 @@ class ImportStarshipsAndPilots extends Command
             // ...
 
             foreach ($data['results'] as $nave) {
-                // ...
+
+                $coste = $nave['cost_in_credits'];
+                        if ($coste === 'unknown') {
+                            $coste = 0;
+                        }
 
                 if (!empty($nave['pilots'])) {
                     foreach ($nave['pilots'] as $urlPiloto) {
@@ -62,10 +66,13 @@ class ImportStarshipsAndPilots extends Command
                             ]);
                         }
 
+                    
                         $starship = Starship::create([
                             'name' => $nave['name'],
                             'model' => $nave['model'],
-                            'piloto' => $piloto['name']
+                            'piloto' => $piloto['name'],
+                            'coste' => $coste
+
                         ]);
 
                         // Establecer la relación en la tabla pivote
@@ -75,6 +82,8 @@ class ImportStarshipsAndPilots extends Command
                 $starship = Starship::create([
                     'name' => $nave['name'],
                     'model' => $nave['model'],
+                    'coste' => $coste
+
                 ]);
             }
 

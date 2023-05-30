@@ -8,14 +8,10 @@ use App\Models\Pilot;
 
 class Starship extends Model
 {
-
     use HasFactory;
 
-  
-
-
     protected $fillable = [
-        'name', 'model', 'piloto',
+        'name', 'model', 'piloto', 'coste'
         // Add other attributes that you want to allow mass assignment for
     ];
 

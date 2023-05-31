@@ -32,7 +32,7 @@ class StarshipController extends Controller
     }
 
 
-    public function deletePilot($starshipId)
+    public function deletePilot($starshipId, $pilotId)
     {
         // Buscar la nave espacial por su ID
         $starship = Starship::find($starshipId);
@@ -40,12 +40,24 @@ class StarshipController extends Controller
         if (!$starship) {
             return response()->json(['message' => 'Nave espacial no encontrada'], 404);
         }
+        
+        // Buscar el piloto por su ID
+        $pilot = Pilot::find($pilotId);
     
-        // Desasociar todos los pilotos de la nave espacial
-        $starship->pilots()->detach();
-        $starship->update(['piloto' => null]);
+        if (!$pilot) {
+            return response()->json(['message' => 'Piloto no encontrado'], 404);
+        }
     
-        return response()->json(['message' => 'Se han eliminado todos los pilotos de la nave espacial']);
+            // Deasociar el piloto a la nave espacial
+        $starship->pilots()->detach($pilot->id);
+        // Obtener los nombres de los pilotos asociados a la nave
+        $pilotosNombres = $starship->pilots()->pluck('name')->toArray();
+
+        // Actualizar la columna 'pilotos' en la tabla 'starships' como un array JSON
+        $starship->update(['pilotos' => json_encode($pilotosNombres)]);
+
+    
+        return response()->json(['message' => 'Se ha eliminado el piloto de la nave espacial']);
     }
     
 
@@ -57,8 +69,7 @@ class StarshipController extends Controller
         if (!$starship) {
             return response()->json(['message' => 'Nave espacial no encontrada'], 404);
         }
-        // Desasociar todos los pilotos de la nave espacial
-        $starship->pilots()->detach();
+        
         // Buscar el piloto por su ID
         $pilot = Pilot::find($pilotId);
     
@@ -66,9 +77,16 @@ class StarshipController extends Controller
             return response()->json(['message' => 'Piloto no encontrado'], 404);
         }
     
-        // Asociar el piloto a la nave espacial
+            // Asociar el piloto a la nave espacial
         $starship->pilots()->attach($pilot->id);
-        $starship->update(['piloto' => $pilot->name]);
+
+        // Obtener los nombres de los pilotos asociados a la nave
+        $pilotosNombres = $starship->pilots()->pluck('name')->toArray();
+
+        // Actualizar la columna 'pilotos' en la tabla 'starships' como un array JSON
+        $starship->update(['pilotos' => json_encode($pilotosNombres)]);
+
+
         
     
         return response()->json(['message' => 'Piloto agregado a la nave espacial']);

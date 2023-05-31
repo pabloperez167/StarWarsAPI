@@ -11,7 +11,7 @@ class Starship extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'model', 'piloto', 'coste'
+        'name', 'model', 'pilotos', 'coste'
         // Add other attributes that you want to allow mass assignment for
     ];
 
@@ -19,8 +19,5 @@ class Starship extends Model
     {
         return $this->belongsToMany(Pilot::class, 'pilot_starship', 'starship_id', 'pilot_id');
     }
-
-
-    
     
 }

@@ -23,7 +23,7 @@ Route::get('pilots', 'App\Http\Controllers\StarshipController@showPilots');
 
 Route::get('starship/{id}', 'App\Http\Controllers\StarshipController@getStarshipxid');
 
-Route::put('deletePilot/{id}', 'App\Http\Controllers\StarshipController@deletePilot');
+Route::put('deletePilot/{id}/{piloto_id}', 'App\Http\Controllers\StarshipController@deletePilot');
 
 Route::put('addPilot/{id}/{piloto_id}', 'App\Http\Controllers\StarshipController@addPilot');
 

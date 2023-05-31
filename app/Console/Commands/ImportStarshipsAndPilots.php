@@ -43,9 +43,48 @@ class ImportStarshipsAndPilots extends Command
             $data = json_decode($response->getBody(), true);
 
             // Recorremos cada nave y extraemos su nombre y pilotos
+        foreach ($data['results'] as $nave) {
+            $coste = $nave['cost_in_credits'];
+            if ($coste === 'unknown') {
+                $coste = 0;
+            }
+
+            $pilotNames = [];
+            $pilotId = [];
+            if (!empty($nave['pilots'])) {
+                foreach ($nave['pilots'] as $urlPiloto) {
+                    $response = $client->request('GET', $urlPiloto);
+                    $piloto = json_decode($response->getBody(), true);
+
+                    $pilotoExistente = Pilot::where('name', $piloto['name'])->first();
+
+                    if (!$pilotoExistente) {
+                        $pilotoExistente = Pilot::create([
+                            'name' => $piloto['name']
+                            // Agrega más atributos del piloto que deseas guardar
+                        ]);
+                    }
+                    
+                    // Establecer la relación en la tabla pivot
+                   
+                    $pilotNames[] = $piloto['name'];
+                    $pilotId[] = $pilotoExistente->id; // Guardar el ID del piloto en lugar del nombre
+                }
+            }
+
+            $starship = Starship::create([
+                'name' => $nave['name'],
+                'model' => $nave['model'],
+                'pilotos' => json_encode($pilotNames), // Convertir el array de nombres de pilotos a JSON
+                'coste' => $coste
+            ]);
+            $starship->pilots()->sync($pilotId);
+        }
+
+            // Recorremos cada nave y extraemos su nombre y pilotos
             // ...
 
-            foreach ($data['results'] as $nave) {
+            /*foreach ($data['results'] as $nave) {
 
                 $coste = $nave['cost_in_credits'];
                         if ($coste === 'unknown') {
@@ -85,7 +124,7 @@ class ImportStarshipsAndPilots extends Command
                     'coste' => $coste
 
                 ]);
-            }
+            }*/
 
             // ...
 

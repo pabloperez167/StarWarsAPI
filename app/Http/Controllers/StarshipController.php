@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Starship;
 use App\Models\Pilot;
 use SebastianBergmann\Environment\Console;
@@ -86,9 +85,6 @@ class StarshipController extends Controller
         // Actualizar la columna 'pilotos' en la tabla 'starships' como un array JSON
         $starship->update(['pilotos' => json_encode($pilotosNombres)]);
 
-
-        
-    
         return response()->json(['message' => 'Piloto agregado a la nave espacial']);
     }
     

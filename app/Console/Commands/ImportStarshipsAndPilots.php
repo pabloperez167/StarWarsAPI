@@ -80,55 +80,6 @@ class ImportStarshipsAndPilots extends Command
             ]);
             $starship->pilots()->sync($pilotId);
         }
-
-            // Recorremos cada nave y extraemos su nombre y pilotos
-            // ...
-
-            /*foreach ($data['results'] as $nave) {
-
-                $coste = $nave['cost_in_credits'];
-                        if ($coste === 'unknown') {
-                            $coste = 0;
-                        }
-
-                if (!empty($nave['pilots'])) {
-                    foreach ($nave['pilots'] as $urlPiloto) {
-                        $response = $client->request('GET', $urlPiloto);
-                        $piloto = json_decode($response->getBody(), true);
-
-                        $pilotoExistente = Pilot::where('name', $piloto['name'])->first();
-
-                        if (!$pilotoExistente) {
-                            $pilotoExistente = Pilot::create([
-                                'name' => $piloto['name']
-                                // Agrega más atributos del piloto que deseas guardar
-                            ]);
-                        }
-
-                    
-                        $starship = Starship::create([
-                            'name' => $nave['name'],
-                            'model' => $nave['model'],
-                            'piloto' => $piloto['name'],
-                            'coste' => $coste
-
-                        ]);
-
-                        // Establecer la relación en la tabla pivote
-                        $starship->pilots()->attach($pilotoExistente, ['starship_id' => $starship->id]);
-                    }
-                }
-                $starship = Starship::create([
-                    'name' => $nave['name'],
-                    'model' => $nave['model'],
-                    'coste' => $coste
-
-                ]);
-            }*/
-
-            // ...
-
-
             $page++;
         }
 

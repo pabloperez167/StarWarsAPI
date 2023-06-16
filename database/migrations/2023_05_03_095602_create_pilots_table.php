@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pilots', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->binary('foto')->nullable();
             $table->timestamps();
         });
     }

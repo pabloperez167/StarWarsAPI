@@ -60,8 +60,8 @@ class ImportStarshipsAndPilots extends Command
 
                     if (!$pilotoExistente) {
                         $pilotoExistente = Pilot::create([
-                            'name' => $piloto['name']
-                            // Agrega más atributos del piloto que deseas guardar
+                            'name' => $piloto['name'],
+                            'foto' => null // Establecer el valor predeterminado como NULL
                         ]);
                     }
                     

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Starship;
 use App\Models\Pilot;
-use SebastianBergmann\Environment\Console;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StarshipController extends Controller
 {
@@ -16,10 +17,17 @@ class StarshipController extends Controller
     }   
     
     public function showPilots()
-    {
-        return response()->json(Pilot::all(),200);
-        
-    }    
+{
+    $pilots = Pilot::all();
+
+    $encodedPilots = $pilots->map(function ($pilot) {
+        $pilot->foto = utf8_encode($pilot->foto);
+        return $pilot;
+    });
+
+    return response()->json($encodedPilots, 200);
+}
+
 
 
     public function getStarshipxid($id){
@@ -87,16 +95,24 @@ class StarshipController extends Controller
 
         return response()->json(['message' => 'Piloto agregado a la nave espacial']);
     }
-    
 
+    public function store(Request $request)
+    {
+        // Obtener los datos del piloto de la solicitud
+        $pilotData = $request->only(['name', 'foto']);
 
+        // Leer el archivo de imagen
+        $fileContents = file_get_contents($pilotData['foto']);
 
-
+        // Actualizar el piloto en la base de datos
+        Pilot::update([
+            'name' => $pilotData['name'],
+            'foto' => $fileContents,
+        ]);
+    }
 
 }
     
-
-
 
 
 

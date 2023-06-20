@@ -17,18 +17,12 @@ class StarshipController extends Controller
     }   
     
     public function showPilots()
-{
-    $pilots = Pilot::all();
+    {
+        $pilots = Pilot::all();
 
-    $encodedPilots = $pilots->map(function ($pilot) {
-        $pilot->foto = utf8_encode($pilot->foto);
-        return $pilot;
-    });
+    return response()->json($pilots, 200);
 
-    return response()->json($encodedPilots, 200);
-}
-
-
+    }
 
     public function getStarshipxid($id){
         $starship= Starship::find($id);

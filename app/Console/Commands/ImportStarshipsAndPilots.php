@@ -59,9 +59,10 @@ class ImportStarshipsAndPilots extends Command
                     $pilotoExistente = Pilot::where('name', $piloto['name'])->first();
 
                     if (!$pilotoExistente) {
+                        $foto = isset($piloto['foto']) ? base64_encode(file_get_contents($piloto['foto'])) : null;
                         $pilotoExistente = Pilot::create([
                             'name' => $piloto['name'],
-                            'foto' => null // Establecer el valor predeterminado como NULL
+                            'foto' => $foto
                         ]);
                     }
                     

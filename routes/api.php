@@ -27,7 +27,7 @@ Route::get('starship/{id}', 'App\Http\Controllers\StarshipController@getStarship
 Route::put('deletePilot/{id}/{piloto_id}', 'App\Http\Controllers\StarshipController@deletePilot');
 
 Route::put('addPilot/{id}/{piloto_id}', 'App\Http\Controllers\StarshipController@addPilot');
-Route::post('/pilots', [StarshipController::class, 'store']);
+
 
 
 ;

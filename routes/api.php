@@ -28,6 +28,10 @@ Route::put('deletePilot/{id}/{piloto_id}', 'App\Http\Controllers\StarshipControl
 
 Route::put('addPilot/{id}/{piloto_id}', 'App\Http\Controllers\StarshipController@addPilot');
 
+Route::put('eliminarPiloto/{id}/{piloto_id}', 'App\Http\Controllers\StarshipController@eliminarPiloto');
+Route::post('/pilotos', 'App\Http\Controllers\StarshipController@store');
+
+
 
 
 ;

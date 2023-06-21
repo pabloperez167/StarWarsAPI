@@ -90,21 +90,6 @@ class StarshipController extends Controller
         return response()->json(['message' => 'Piloto agregado a la nave espacial']);
     }
 
-    public function store(Request $request)
-    {
-        // Obtener los datos del piloto de la solicitud
-        $pilotData = $request->only(['name', 'foto']);
-
-        // Leer el archivo de imagen
-        $fileContents = file_get_contents($pilotData['foto']);
-
-        // Actualizar el piloto en la base de datos
-        Pilot::update([
-            'name' => $pilotData['name'],
-            'foto' => $fileContents,
-        ]);
-    }
-
 }
     
 

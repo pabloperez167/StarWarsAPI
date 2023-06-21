@@ -9,7 +9,7 @@ class Pilot extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name','foto'
+        'name'
         
         // Add other attributes that you want to allow mass assignment for
     ];

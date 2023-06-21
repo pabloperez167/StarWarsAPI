@@ -55,14 +55,15 @@ class ImportStarshipsAndPilots extends Command
                 foreach ($nave['pilots'] as $urlPiloto) {
                     $response = $client->request('GET', $urlPiloto);
                     $piloto = json_decode($response->getBody(), true);
-
+                    
                     $pilotoExistente = Pilot::where('name', $piloto['name'])->first();
+                    $piloto['name'] = str_replace('é', 'e', $piloto['name']);
 
+                    
                     if (!$pilotoExistente) {
-                        $foto = isset($piloto['foto']) ? base64_encode(file_get_contents($piloto['foto'])) : null;
                         $pilotoExistente = Pilot::create([
-                            'name' => $piloto['name'],
-                            'foto' => $foto
+                            
+                            'name' => $piloto['name']
                         ]);
                     }
                     

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\StarshipController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +31,3 @@ Route::put('eliminarPiloto/{id}/{piloto_id}', 'App\Http\Controllers\StarshipCont
 Route::post('/pilotos', 'App\Http\Controllers\StarshipController@store');
 
 
-
-
-;

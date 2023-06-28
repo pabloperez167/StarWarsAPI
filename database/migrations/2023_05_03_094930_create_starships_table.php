@@ -1,8 +1,9 @@
 <?php
 
-use Carbon\Traits\ToStringFormat;
 use Illuminate\Database\Migrations\Migration;
+//Define la estructura de la tabla 
 use Illuminate\Database\Schema\Blueprint;
+//Para interactuar con el esquema de la base de datos
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -25,6 +26,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
+     * El método down() define la lógica para revertir la migración, es decir, 
+     * eliminar la tabla starships de la base de datos. Schema::dropIfExists() se utiliza para eliminar la tabla si existe.
      */
     public function down(): void
     {
